@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+</head>
+
+<body>
+    <h1>Hello World!</h1>
+    We are using node
+    <script>document.write(process.versions.node)</script>, Chrome
+    <script>document.write(process.versions.chrome)</script>, and Electron
+    <script>document.write(process.versions.electron)</script>.
+
+    <div>
+        <input id="droid-cmd" />
+        <button onclick="runCustomCmd(document.getElementById('droid-cmd').value)">Run</button>
+    </div>
+    <div>
+        <input id="search" onkeyup="lpSearch(this.value)" placeholder="Enter search here" />
+        <button onclick="runCmd('lpass', ['sync'])">Run with sync</button>
+    </div>
+    <div>
+        <textarea rows="20" cols="90" id="droid-output" disabled="true"></textarea>
+        <div id="status"></div>
+    </div>
+
+    <script src="./terminal.js"></script>
+    <script>
+        // GLUE to the screen
+        function getDroidOutput() { return document.getElementById("droid-output"); };
+        function getStatus() { return document.getElementById("status"); };
+        // End of GLUE
+        //backgroundProcess();
+        function runCustomCmd(cmdText) {
+            s = cmdText.split(' ')
+
+            runCmd(s[0], s.slice(1))
+        }
+
+        function lpSearch(q) {
+            searchLP(q)
+        }
+    </script>
+</body>
+
+</html>

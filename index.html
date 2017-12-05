@@ -7,12 +7,21 @@
 </head>
 
 <body>
-    <h1>Hello World!</h1>
-    We are using node
-    <script>document.write(process.versions.node)</script>, Chrome
-    <script>document.write(process.versions.chrome)</script>, and Electron
-    <script>document.write(process.versions.electron)</script>.
 
+
+    <h1>Hello World!</h1>
+    <div id="app" />
+    <script>
+        require('babel-register');
+        require('./index')
+    </script>
+    <p>
+        We are using node
+        <script>document.write(process.versions)</script>, Chrome
+        <script>document.write(process.versions.chrome)</script>, and Electron
+        <script>document.write(process.versions.electron)</script>.
+    </p>
+    <script>console.log(process.versions)</script>
     <div>
         <input id="droid-cmd" />
         <button onclick="runCustomCmd(document.getElementById('droid-cmd').value)">Run</button>

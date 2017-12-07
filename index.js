@@ -8,7 +8,7 @@ import App from "./containers/App";
 import configureStore from "./store/configureStore";
 import rootSaga from "./sagas";
 
-const store = configureStore({ counter: 0 });
+const store = configureStore({ counter: 0, query: "", results: [] });
 store.runSaga(rootSaga);
 
 render(

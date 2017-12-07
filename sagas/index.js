@@ -1,5 +1,7 @@
-import { all } from "redux-saga/effects";
+import { all, fork } from "redux-saga/effects";
+
+import fetchSearchResultsWatcher from "./search";
 
 export default function* root() {
-  yield all([]);
+  yield all([fork(fetchSearchResultsWatcher)]);
 }

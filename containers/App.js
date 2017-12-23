@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
 
+import Select from "react-select";
+import "react-select/dist/react-select.css";
+
 import { increment } from "../actions/counter";
 import { searchQueryUpdated } from "../actions";
 
@@ -9,24 +12,53 @@ class App extends Component {
     super(props);
   }
 
+  state = {
+    selectedOption: ""
+  };
+
   onSearchKeyUp = evt => {
     console.log(`key up recieved event target value was ${evt.target.value}`);
     console.log(evt);
     this.props.queryChanged(evt.target.value);
   };
 
+  handleChange = selectedOption => {
+    this.setState({ selectedOption });
+    console.log(`Selected: ${selectedOption.label}`);
+  };
+
   render() {
     return (
       <div>
+        <Select
+          value={this.state.selectedOption.value}
+          onChange={this.handleChange}
+          options={[
+            { value: "one", label: "One" },
+            { value: "two", label: "Two" }
+          ]}
+        />
         I am a react App! Counter is at [{this.props.counter}]<button
           onClick={this.props.increment}
         >
           add one
         </button>
-        <input onKeyUp={this.onSearchKeyUp} placeholder="Enter search here" />
-        <ol style={{ maxHeight: "300px", overflowY: "scroll" }}>
-          {this.props.results.map(x => <li>{x}</li>)}
-        </ol>
+        <input
+          onKeyUp={this.onSearchKeyUp}
+          placeholder="Enter search here"
+          onKeyDown={() => console.log("key down")}
+        />
+        <select
+          style={{ maxHeight: "300px", overflowY: "scroll" }}
+          size={15}
+          onChange={e => console.log(e.target.value)}
+        >
+          {this.props.results.map(x => (
+            <option key={x} value={x}>
+              {x}
+            </option>
+          ))}
+        </select>
       </div>
     );
   }

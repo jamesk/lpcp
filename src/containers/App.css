@@ -1,0 +1,9 @@
+.custom-class {
+  & input {
+    background-color: red;
+  }
+}
+
+.bob {
+  color: blue;
+}

@@ -4,16 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Hello World!</title>
+    <link href="../dist/bundle.css" rel="stylesheet" />
+    <link href="../dist/bundle.vendor.css" rel="stylesheet" />
 </head>
 
 <body>
 
 
     <h1>Hello World!</h1>
-    <div id="app" />
+    <div id="app">REACT BROKEN</div>
     <script>
-        require('babel-register');
-        require('./index')
+        /*require('babel-register');*/
+        require('../dist/bundle.js')
     </script>
     <p>
         We are using node

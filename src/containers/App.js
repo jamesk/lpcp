@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
+import classnames from "classnames";
 
 import Select from "react-select";
 import "react-select/dist/react-select.css";
 
+import styles from "./App.css";
 import { increment } from "../actions/counter";
 import { searchQueryUpdated } from "../actions";
 
@@ -17,6 +19,8 @@ class App extends Component {
   };
 
   onSearchKeyUp = evt => {
+    console.log("styles:");
+    console.log(styles);
     console.log(`key up recieved event target value was ${evt.target.value}`);
     console.log(evt);
     this.props.queryChanged(evt.target.value);
@@ -29,7 +33,10 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div
+        className={classnames(styles.customClass, styles.bobo)}
+        style={{ backgroundColor: "blue" }}
+      >
         <Select
           value={this.state.selectedOption.value}
           onChange={this.handleChange}

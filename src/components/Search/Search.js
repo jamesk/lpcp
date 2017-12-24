@@ -15,7 +15,7 @@ class Search extends Component {
   };
 
   state = {
-    selectedIndex: null
+    selectedIndex: 0
   };
 
   onQueryChange = evt => {
@@ -23,11 +23,21 @@ class Search extends Component {
   };
 
   onKeyDown = evt => {
-    console.log("key down");
-  };
+    switch (evt.key) {
+      case "ArrowDown":
+        this.setState({ selectedIndex: this.state.selectedIndex + 1 });
+        break;
+      case "ArrowUp":
+        this.setState({ selectedIndex: this.state.selectedIndex - 1 });
+        break;
+      case "Enter":
+        console.log("go into entry");
+        break;
+      default:
+        return;
+    }
 
-  onInputKeyDown = evt => {
-    console.log("Input key down");
+    evt.stopPropagation();
   };
 
   render() {
@@ -37,7 +47,7 @@ class Search extends Component {
       <div onKeyDown={this.onKeyDown}>
         <input
           onChange={this.onQueryChange}
-          onKeyDown={this.onInputKeyDown}
+          onKeyDown={this.onKeyDown}
           placeholder="Enter search here"
         />
         <ul className={styles.results}>

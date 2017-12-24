@@ -25,10 +25,17 @@ class Search extends Component {
   onKeyDown = evt => {
     switch (evt.key) {
       case "ArrowDown":
-        this.setState({ selectedIndex: this.state.selectedIndex + 1 });
+        this.setState({
+          selectedIndex: Math.min(
+            this.props.results.length - 1,
+            this.state.selectedIndex + 1
+          )
+        });
         break;
       case "ArrowUp":
-        this.setState({ selectedIndex: this.state.selectedIndex - 1 });
+        this.setState({
+          selectedIndex: Math.max(0, this.state.selectedIndex - 1)
+        });
         break;
       case "Enter":
         console.log("go into entry");
@@ -37,29 +44,33 @@ class Search extends Component {
         return;
     }
 
+    evt.preventDefault();
     evt.stopPropagation();
   };
 
   render() {
     console.log("rendering search");
+    const itemsToShow = 10;
+    const startIndex = Math.max(0, this.state.selectedIndex - itemsToShow + 1);
+    const endIndex = startIndex + itemsToShow;
 
     return (
-      <div onKeyDown={this.onKeyDown}>
+      <div>
         <input
           onChange={this.onQueryChange}
           onKeyDown={this.onKeyDown}
           placeholder="Enter search here"
         />
-        <ul className={styles.results}>
-          {this.props.results.map((result, i) => (
+        <ul className={styles.results} onKeyDown={this.onKeyDown}>
+          {this.props.results.slice(startIndex, endIndex).map((result, i) => (
             <li
               key={result}
               className={classnames({
                 [styles.item]: true,
-                [styles.selected]: this.state.selectedIndex === i
+                [styles.selected]: this.state.selectedIndex === startIndex + i
               })}
             >
-              {result} <button>Hi</button>
+              {result} <input type="text" value="hi" />
             </li>
           ))}
         </ul>

@@ -1,6 +1,5 @@
 .results {
-  max-height: 300px;
-  overflow-y: scroll;
+  overflow-y: hidden;
   list-style-type: none;
 }
 

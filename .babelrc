@@ -4,7 +4,8 @@
       "env",
       {
         "targets": { "node": 7 },
-        "useBuiltIns": true
+        "useBuiltIns": true,
+        "include": ["transform-es2015-classes"]
       }
     ],
     "stage-0",

@@ -6,34 +6,37 @@ import styles from "./App.css";
 import { increment } from "../actions/counter";
 import { searchQueryUpdated } from "../actions";
 
+import Search from "../components/Search";
+
 class App extends Component {
   constructor(props) {
     super(props);
   }
 
-  state = {
-    selectedOption: ""
+  componentDidMount = () => {
+    console.log("mounted");
   };
 
-  onSearchKeyUp = evt => {
+  bob = "bye";
+
+  state = {
+    selectedIndex: null
+  };
+
+  onQueryChange = evt => {
     this.props.queryChanged(evt.target.value);
   };
 
+  onKeyDown = evt => {
+    console.log(this.bob);
+  };
+
   render() {
+    console.log("rendering");
+
     return (
       <div>
-        <input onChange={this.onSearchKeyUp} placeholder="Enter search here" />
-        <select
-          style={{ maxHeight: "300px", overflowY: "scroll" }}
-          size={15}
-          onChange={e => console.log(e.target.value)}
-        >
-          {this.props.results.map(x => (
-            <option key={x} value={x}>
-              {x}
-            </option>
-          ))}
-        </select>
+        <Search />
       </div>
     );
   }

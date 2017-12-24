@@ -4,8 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Hello World!</title>
-    <link href="../dist/bundle.css" rel="stylesheet" />
-    <link href="../dist/bundle.vendor.css" rel="stylesheet" />
+    <script>
+        (function () {
+            if (!process.env.HOT) {
+                const vendorLink = document.createElement('link');
+                vendorLink.rel = 'stylesheet';
+                vendorLink.href = './dist/bundle.vendor.css';
+                // HACK: Writing the script path should be done with webpack
+                document.getElementsByTagName('head')[0].appendChild(vendorLink);
+
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                vendorLink.href = './dist/bundle.css';
+                // HACK: Writing the script path should be done with webpack
+                document.getElementsByTagName('head')[0].appendChild(link);
+            }
+        }());
+    </script>
 </head>
 
 <body>
@@ -14,8 +29,15 @@
     <h1>Hello World!</h1>
     <div id="app">REACT BROKEN</div>
     <script>
-        /*require('babel-register');*/
-        require('../dist/bundle.js')
+        {
+            const script = document.createElement('script');
+            const port = process.env.PORT || 3000;
+            script.src = (process.env.HOT)
+                ? 'http://localhost:' + port + '/dist/bundle.js'
+                : './dist/bundle.js';
+            // HACK: Writing the script path should be done with webpack
+            document.body.appendChild(script);
+        }
     </script>
     <p>
         We are using node

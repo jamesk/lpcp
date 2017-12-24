@@ -1,7 +1,8 @@
 // React imports
 import React from "react";
 import { Provider } from "react-redux";
-import { render } from "react-dom";
+import ReactDom from "react-dom";
+import { AppContainer } from "react-hot-loader";
 
 // app specific imports
 import App from "./containers/App";
@@ -11,9 +12,22 @@ import rootSaga from "./sagas";
 const store = configureStore({ counter: 0, query: "", results: [] });
 store.runSaga(rootSaga);
 
-render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById("app")
-);
+const render = Component => {
+  ReactDom.render(
+    <AppContainer>
+      <Provider store={store}>
+        <Component />
+      </Provider>
+    </AppContainer>,
+    document.getElementById("app")
+  );
+};
+
+render(App);
+
+if (module.hot) {
+  module.hot.accept("./containers/App", () => {
+    const NextApp = require("./containers/App").default;
+    render(App);
+  });
+}

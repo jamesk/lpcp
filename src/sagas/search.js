@@ -12,7 +12,7 @@ function* fetchSearchResults(action) {
 
   try {
     const output = yield call(searchLPRaw, action.q);
-    console.log(`search output:\n${output}`);
+    //TODO: clean up: console.log(`search output:\n${output}`);
     yield put(searchFetchSuccess(output.split("\n").filter(x => x !== "")));
   } catch (error) {
     console.log(error);
